@@ -41,6 +41,7 @@
   setInterval(updateCountdown, 1000);
 
   function initHeroVideo() {
+    const hero = document.querySelector('.hero');
     const heroVideo = document.querySelector('.hero__video');
     if (!heroVideo) return;
 
@@ -60,12 +61,31 @@
     };
 
     tryPlayHeroVideo();
-    heroVideo.addEventListener('loadeddata', tryPlayHeroVideo);
-    heroVideo.addEventListener('canplay', tryPlayHeroVideo);
+
+    ['loadedmetadata', 'loadeddata', 'canplay', 'canplaythrough'].forEach((event) => {
+      heroVideo.addEventListener(event, tryPlayHeroVideo);
+    });
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', tryPlayHeroVideo);
+    }
+
     document.addEventListener('visibilitychange', () => {
       if (!document.hidden) tryPlayHeroVideo();
     });
     window.addEventListener('pageshow', tryPlayHeroVideo);
+    window.addEventListener('focus', tryPlayHeroVideo);
+
+    if (hero && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) tryPlayHeroVideo();
+      }, { threshold: 0.01 });
+      observer.observe(hero);
+    }
+
+    ['touchstart', 'click', 'scroll'].forEach((event) => {
+      document.addEventListener(event, tryPlayHeroVideo, { once: true, passive: true });
+    });
   }
 
   if (document.readyState === 'loading') {
