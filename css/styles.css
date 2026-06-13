@@ -538,27 +538,27 @@ a { color: inherit; text-decoration: none; }
   height: 100%;
   object-fit: cover;
   pointer-events: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .hero__video::-webkit-media-controls,
 .hero__video::-webkit-media-controls-enclosure,
+.hero__video::-webkit-media-controls-panel,
 .hero__video::-webkit-media-controls-start-playback-button,
 .hero__video::-webkit-media-controls-play-button,
-.hero__video::-webkit-media-controls-overlay-play-button {
+.hero__video::-webkit-media-controls-overlay-play-button,
+.hero__video::-webkit-media-controls-timeline,
+.hero__video::-webkit-media-controls-current-time-display,
+.hero__video::-webkit-media-controls-time-remaining-display,
+.hero__video::-webkit-media-controls-mute-button,
+.hero__video::-webkit-media-controls-toggle-closed-captions-button,
+.hero__video::-webkit-media-controls-volume-slider {
   display: none !important;
   -webkit-appearance: none;
   opacity: 0;
   pointer-events: none;
+  visibility: hidden;
 }
-
-.hero__overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse at center, transparent 20%, rgba(24,23,24,0.7) 70%),
-    linear-gradient(180deg, rgba(86,42,99,0.4) 0%, rgba(24,23,24,0.6) 100%);
 }
 
 .hero__geo { position: absolute; inset: 0; pointer-events: none; }
